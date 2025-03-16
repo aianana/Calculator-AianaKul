@@ -35,6 +35,9 @@ To exit, type "exit".
 
 After each calculation, the program asks if you want to continue (y/n).
 
+**Example:**
+![example](images/example.png)
+
 **Design Choices:**
 - Used JANSI to add colors to the output.
 - The user enters expressions as text, and the program processes them.
