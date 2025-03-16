@@ -39,3 +39,4 @@ Thank you for using the Calculator!
 
 
 Screenshots:
+![1.1](images/1 (1).png)
