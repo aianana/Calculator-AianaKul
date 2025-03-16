@@ -14,6 +14,7 @@ Please enter your arithmetic expression or option:
 
 Result: -76.0
 Do you want to continue? (y/n): n
+
 Thank you for using the Calculator!
 
 
