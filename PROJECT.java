@@ -6,7 +6,7 @@ public class Main {
     private static List<String> history = new ArrayList<>();
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println(ansi().fg(Ansi.Color.BLUE).a("Welcome to the Calculator!").reset());
         while (true) {
             System.out.println(ansi().fg(Ansi.Color.YELLOW)
@@ -31,13 +31,13 @@ public class Main {
                     .a("\n╚═══════════════════════════════════════════════════════════════╝")
                     .reset());
             System.out.println("Please enter your arithmetic expression: ");
-            String equation = in.nextLine().trim();
+            String expression = input.nextLine().trim();
 
-            if (equation.equalsIgnoreCase("history")) {
+            if (expression.equalsIgnoreCase("history")) {
                 showHistory();
                 continue;
             }
-            if (equation.equalsIgnoreCase("exit")) {
+            if (expression.equalsIgnoreCase("exit")) {
                 System.out.println(ansi().fg(Ansi.Color.BLUE).a("Thank you for using the Calculator!").reset());
                 break;
             }
@@ -53,16 +53,16 @@ public class Main {
             priortet.put("round", 4);
             priortet.put("abs", 4);
 
-            List<String> tokenss = tokenize(equation);
+            List<String> tokenss = tokenize(expression);
             List<String> out = RPN(tokenss, priortet);
             double result = calculateD(out);
             System.out.println("Result: " + result);
 
             // Store calculations in history
-            history.add(equation + " = " + result);
+            history.add(expression + " = " + result);
 
             System.out.print(ansi().fg(Ansi.Color.MAGENTA).a("Do you want to continue? (y/n): ").reset());
-            String choice = in.nextLine().trim().toLowerCase();
+            String choice = input.nextLine().trim().toLowerCase();
             if (choice.equals("n")) {
                 System.out.println(ansi().fg(Ansi.Color.BLUE).a("Thank you for using the Calculator!").reset());
                 break;
@@ -82,53 +82,55 @@ public class Main {
     }
 
     public static double calculateD(List<String> out) {
-        Stack<Double> numbers = new Stack<>();
-        for (String token : out) {
+        Stack<Double> nums = new Stack<>();
+        for (String t : out) {
             try {
-                numbers.push(Double.parseDouble(token));
+                nums.push(Double.parseDouble(t));
             } catch (NumberFormatException e) {
-                switch (token) {
+                switch (t) {
                     case "+":
-                        numbers.push(numbers.pop() + numbers.pop());
+                        nums.push(nums.pop() + nums.pop());
                         break;
                     case "-":
-                        double b = numbers.pop();
-                        double a = numbers.pop();
-                        numbers.push(a - b);
+                        double b = nums.pop();
+                        double a = nums.pop();
+                        nums.push(a - b);
                         break;
                     case "*":
-                        numbers.push(numbers.pop() * numbers.pop());
+                        nums.push(nums.pop() * nums.pop());
                         break;
                     case "/":
-                        b = numbers.pop();
-                        a = numbers.pop();
-                        numbers.push(a / b);
+                        b = nums.pop();
+                        a = nums.pop();
+                        nums.push(a / b);
                         break;
                     case "%":
-                        b = numbers.pop();
-                        a = numbers.pop();
-                        numbers.push(a % b);
-                        break;
-                    case "pow":
-                        b = numbers.pop();
-                        a = numbers.pop();
-                        numbers.push(Math.pow(a, b));
-                        break;
-                    case "sqrt":
-                        numbers.push(Math.sqrt(numbers.pop()));
-                        break;
-                    case "round":
-                        numbers.push((double) Math.round(numbers.pop()));
+                        b = nums.pop();
+                        a = nums.pop();
+                        nums.push(a % b);
                         break;
                     case "abs":
-                        numbers.push(Math.abs(numbers.pop()));
+                        nums.push(Math.abs(nums.pop()));
+                        break;
+
+                    case "sqrt":
+                        nums.push(Math.sqrt(nums.pop()));
+                        break;
+                    case "round":
+                        nums.push((double) Math.round(nums.pop()));
+                        break;
+
+                    case "pow":
+                        b = nums.pop();
+                        a = nums.pop();
+                        nums.push(Math.pow(a, b));
                         break;
                     default:
-                        throw new IllegalArgumentException("Unknown: " + token);
+                        throw new IllegalArgumentException("Unknown: " + t);
                 }
             }
         }
-        return numbers.pop();
+        return nums.pop();
     }
 
     public static List<String> RPN(List<String> tokens, Map<String, Integer> priority) {
@@ -169,16 +171,16 @@ public class Main {
         int i = 0;
 
         while (i < length) {
-            char ch = equation.charAt(i);
+            char c = equation.charAt(i);
 
-            if (Character.isWhitespace(ch)) {
+            if (Character.isWhitespace(c)) {
                 i++;
                 continue;
             }
 
-            if (Character.isDigit(ch) || ch == '-' && (i == 0 || "+-*/%(".contains(String.valueOf(equation.charAt(i - 1))))) {
+            if (Character.isDigit(c) || c == '-' && (i == 0 || "+-*/%(".contains(String.valueOf(equation.charAt(i - 1))))) {
                 StringBuilder number = new StringBuilder();
-                number.append(ch);
+                number.append(c);
                 i++;
                 while (i < length && (Character.isDigit(equation.charAt(i)) || equation.charAt(i) == '.')) {
                     number.append(equation.charAt(i));
@@ -188,19 +190,19 @@ public class Main {
                 continue;
             }
 
-            if ("+-*/%".indexOf(ch) != -1) {
-                tokens.add(String.valueOf(ch));
+            if ("+-*/%".indexOf(c) != -1) {
+                tokens.add(String.valueOf(c));
                 i++;
                 continue;
             }
 
-            if (ch == '(' || ch == ')') {
-                tokens.add(String.valueOf(ch));
+            if (c == '(' || c == ')') {
+                tokens.add(String.valueOf(c));
                 i++;
                 continue;
             }
 
-            if (Character.isLetter(ch)) {
+            if (Character.isLetter(c)) {
                 StringBuilder function = new StringBuilder();
                 while (i < length && Character.isLetter(equation.charAt(i))) {
                     function.append(equation.charAt(i));
@@ -210,7 +212,7 @@ public class Main {
                 continue;
             }
 
-            throw new IllegalArgumentException("Invalid: " + ch);
+            throw new IllegalArgumentException("Invalid: " + c);
         }
 
         return tokens;
