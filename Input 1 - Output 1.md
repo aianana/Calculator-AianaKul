@@ -1,4 +1,4 @@
-Input :
+#Input :
 
 42/(3+4)-abs(-7)*sqrt(36)
 
@@ -14,7 +14,7 @@ exit
 
 
 
-Output:
+#Output:
 
 Please enter your arithmetic expression or option: 
 
@@ -38,5 +38,5 @@ Thank you for using the Calculator!
 
 
 
-Screenshots:
+#Screenshots:
 ![1.1](images/1 (1).png)
