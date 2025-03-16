@@ -41,4 +41,4 @@ Thank you for using the Calculator!
 
 Screenshots:
 -
-![1.1](images/1 (1).png)
+![1.1](images/1(1).png) ![1.1](images/1(2).png) ![1.1](images/1(3).png) ![1.1](images/1(4).png)
