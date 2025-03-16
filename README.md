@@ -41,6 +41,8 @@ After each calculation, the program asks if you want to continue (y/n).
 - Used Reverse Polish Notation (RPN) to handle operator precedence correctly.
 - History is stored in an `ArrayList`.
 - Used try-catch to handle errors and prevent crashes.
+- I created a visually appealing table that serves as a menu for the calculator. This table lists all the available arithmetic operations and their corresponding symbols or syntax. It also includes additional commands like history to view past calculations and exit to quit the program. The table is displayed in the console with colored text to enhance readability and user experience.
+![menu](images/menu.png)
 
 **Algorithms and Data Structures Used:**
 Data Structures:
