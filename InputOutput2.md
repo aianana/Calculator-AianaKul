@@ -5,6 +5,7 @@ history
 (123%120)-sqrt(9)-456/6
 
 n
+
 Output:
 -
 Please enter your arithmetic expression or option:
