@@ -1,4 +1,4 @@
-Input :
+##Input :
 
 42/(3+4)-abs(-7)*sqrt(36)
 
@@ -12,7 +12,7 @@ history
 
 exit
 
-Output:
+##Output:
 
 Please enter your arithmetic expression or option: 
 
